@@ -12,231 +12,208 @@ const ChloroplastView: React.FC<ChloroplastViewProps> = ({ stage }) => {
 
   return (
     <div className="animate-zoom-in">
-      <svg viewBox="0 0 580 400" className="w-full h-full">
+      <svg viewBox="0 0 620 420" className="w-full h-full">
         <defs>
           <radialGradient id="stromaFill" cx="50%" cy="50%">
-            <stop offset="0%" stopColor="hsl(95, 30%, 85%)" />
+            <stop offset="0%" stopColor="hsl(95, 30%, 88%)" />
             <stop offset="100%" stopColor="hsl(100, 25%, 78%)" />
           </radialGradient>
           <linearGradient id="thylakoidDisc" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="hsl(155, 50%, 48%)" />
-            <stop offset="50%" stopColor="hsl(155, 55%, 40%)" />
             <stop offset="100%" stopColor="hsl(155, 45%, 35%)" />
           </linearGradient>
           <linearGradient id="membraneFill" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="hsl(142, 35%, 52%)" />
             <stop offset="100%" stopColor="hsl(142, 30%, 42%)" />
           </linearGradient>
-          <filter id="softBlur">
-            <feGaussianBlur stdDeviation="1.5" />
-          </filter>
-          <marker id="arrowHead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(0, 0%, 40%)" opacity="0.5" />
+          <marker id="arrowGray" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(0, 0%, 50%)" />
           </marker>
-          <marker id="arrowBlue" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(210, 50%, 50%)" opacity="0.7" />
+          <marker id="arrowBlue" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(210, 50%, 50%)" />
           </marker>
-          <marker id="arrowYellow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(45, 65%, 50%)" opacity="0.7" />
+          <marker id="arrowYellow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(45, 65%, 50%)" />
+          </marker>
+          <marker id="arrowGreen" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 z" fill="hsl(142, 40%, 42%)" />
           </marker>
         </defs>
 
-        {/* === OUTER MEMBRANE === */}
-        <ellipse cx="290" cy="195" rx="270" ry="170"
-          fill="none" stroke="url(#membraneFill)" strokeWidth="4" opacity="0.6" />
-        {/* === INNER MEMBRANE === */}
-        <ellipse cx="290" cy="195" rx="255" ry="155"
-          fill="url(#stromaFill)" stroke="url(#membraneFill)" strokeWidth="2.5" opacity="0.5" />
+        {/* === CHLOROPLAST OUTER SHAPE === */}
+        <ellipse cx="310" cy="210" rx="290" ry="180" fill="none" stroke="url(#membraneFill)" strokeWidth="5" opacity="0.5" />
+        <ellipse cx="310" cy="210" rx="275" ry="165" fill="url(#stromaFill)" stroke="url(#membraneFill)" strokeWidth="2.5" opacity="0.45" />
 
-        {/* Stroma label */}
-        <text x="255" y="55" fontSize="11" fill="hsl(100, 20%, 40%)" fontWeight="500" fontStyle="italic">Stroma</text>
+        {/* Membrane labels - top left, no overlap */}
+        <text x="42" y="58" fontSize="9" fill="hsl(142, 25%, 40%)" fontWeight="500">Outer membrane</text>
+        <line x1="42" y1="62" x2="58" y2="80" stroke="hsl(142, 25%, 50%)" strokeWidth="0.6" opacity="0.5" />
+        <text x="42" y="78" fontSize="9" fill="hsl(142, 25%, 40%)" fontWeight="500">Inner membrane</text>
+        <line x1="55" y1="82" x2="68" y2="95" stroke="hsl(142, 25%, 50%)" strokeWidth="0.6" opacity="0.5" />
 
-        {/* Membrane labels */}
-        <g>
-          <line x1="28" y1="50" x2="55" y2="70" stroke="hsl(142, 25%, 45%)" strokeWidth="0.5" opacity="0.6" />
-          <text x="5" y="46" fontSize="8" fill="hsl(142, 25%, 40%)">Outer Membrane</text>
-          <line x1="42" y1="68" x2="62" y2="78" stroke="hsl(142, 25%, 45%)" strokeWidth="0.5" opacity="0.6" />
-          <text x="5" y="72" fontSize="8" fill="hsl(142, 25%, 40%)">Inner Membrane</text>
-        </g>
+        {/* Stroma label - center top */}
+        <text x="280" y="78" fontSize="12" fill="hsl(100, 22%, 42%)" fontWeight="600" fontStyle="italic">Stroma</text>
 
-        {/* Intermembrane Space label */}
-        <g>
-          <line x1="540" y1="100" x2="520" y2="120" stroke="hsl(142, 25%, 45%)" strokeWidth="0.5" opacity="0.6" />
-          <text x="505" y="96" fontSize="7" fill="hsl(142, 25%, 40%)">Intermembrane</text>
-          <text x="520" y="106" fontSize="7" fill="hsl(142, 25%, 40%)">Space</text>
-        </g>
-
-        {/* === GRANA STACKS (thylakoid discs) === */}
+        {/* === GRANA (Thylakoid stacks) - LEFT SIDE === */}
         {[
-          { x: 110, y: 130, count: 6 },
-          { x: 210, y: 120, count: 7 },
+          { x: 120, y: 145, count: 5 },
+          { x: 220, y: 135, count: 6 },
         ].map((stack, gi) => (
           <g key={`granum-${gi}`}>
-            <ellipse cx={stack.x + 2} cy={stack.y + stack.count * 9 + 4} rx="32" ry="5"
-              fill="hsl(155, 30%, 30%)" opacity="0.1" filter="url(#softBlur)" />
             {Array.from({ length: stack.count }).map((_, i) => {
-              const yPos = stack.y + i * 9;
-              const isLit = showLightReaction && gi === 0 && i === 2;
+              const yPos = stack.y + i * 10;
+              const lit = showLightReaction && gi === 0 && i === 2;
               return (
-                <g key={`disc-${gi}-${i}`}>
-                  <ellipse cx={stack.x} cy={yPos} rx="30" ry="5"
-                    fill={isLit ? "hsl(150, 55%, 50%)" : "url(#thylakoidDisc)"}
-                    opacity={showLightReaction ? 0.85 : 0.6}
-                    className="transition-all duration-700"
-                  />
-                  <ellipse cx={stack.x} cy={yPos - 1.5} rx="26" ry="2.5"
-                    fill="hsl(150, 45%, 55%)" opacity="0.2" />
-                  <ellipse cx={stack.x} cy={yPos + 2} rx="28" ry="3"
-                    fill="hsl(155, 40%, 28%)" opacity="0.15" />
-                </g>
+                <ellipse key={`d-${gi}-${i}`} cx={stack.x} cy={yPos} rx="28" ry="5.5"
+                  fill={lit ? "hsl(150, 55%, 50%)" : "url(#thylakoidDisc)"}
+                  opacity={showLightReaction ? 0.85 : 0.55}
+                  className="transition-all duration-700" />
               );
             })}
           </g>
         ))}
 
-        {/* Intergranal lamellae */}
-        <path d="M140 160 Q170 158 180 150" stroke="hsl(155, 40%, 45%)" strokeWidth="2" fill="none" opacity="0.35" />
+        {/* Lamella connecting grana */}
+        <path d="M148 175 Q175 172 192 165" stroke="hsl(155, 40%, 45%)" strokeWidth="2.5" fill="none" opacity="0.3" />
 
-        {/* Thylakoid / Grana label */}
-        <g>
-          <line x1="65" y1="115" x2="82" y2="130" stroke="hsl(155, 30%, 40%)" strokeWidth="0.5" opacity="0.6" />
-          <text x="25" y="108" fontSize="8.5" fill="hsl(155, 30%, 35%)" fontWeight="500" fontStyle="italic">Thylakoid</text>
-          <text x="32" y="118" fontSize="7.5" fill="hsl(155, 25%, 45%)">(Grana stack)</text>
-        </g>
+        {/* Thylakoid label */}
+        <text x="62" y="130" fontSize="9" fill="hsl(155, 30%, 35%)" fontWeight="600" fontStyle="italic">Thylakoid</text>
+        <text x="62" y="142" fontSize="8" fill="hsl(155, 25%, 48%)">(Grana stack)</text>
+        <line x1="93" y1="145" x2="93" y2="155" stroke="hsl(155, 30%, 40%)" strokeWidth="0.5" opacity="0.5" />
 
-        {/* === LIGHT REACTIONS (left side) === */}
+        {/* ============================================ */}
+        {/* === LIGHT REACTIONS - LEFT SIDE === */}
+        {/* ============================================ */}
         {showLightReaction && (
           <g>
-            {/* LIGHT label with arrow */}
-            <text x="55" y="85" fontSize="11" fill="hsl(48, 70%, 45%)" fontWeight="700">LIGHT</text>
-            <line x1="80" y1="88" x2="110" y2="125" stroke="hsl(48, 80%, 55%)" strokeWidth="2"
-              opacity="0.5" markerEnd="url(#arrowYellow)" />
+            {/* LIGHT label + beams */}
+            <text x="70" y="102" fontSize="12" fill="hsl(48, 70%, 45%)" fontWeight="700">☀ LIGHT</text>
+            <line x1="100" y1="108" x2="120" y2="140" stroke="hsl(48, 80%, 60%)" strokeWidth="2" opacity="0.4" className="animate-beam" />
+            <line x1="88" y1="110" x2="115" y2="140" stroke="hsl(48, 75%, 60%)" strokeWidth="1.5" opacity="0.25" className="animate-beam" style={{ animationDelay: "0.5s" }} />
 
-            {/* Light beams hitting thylakoid */}
-            <line x1="100" y1="50" x2="110" y2="128" stroke="hsl(48, 80%, 65%)" strokeWidth="2.5"
-              opacity="0.3" className="animate-beam" />
-            <line x1="92" y1="55" x2="107" y2="128" stroke="hsl(48, 75%, 65%)" strokeWidth="1.5"
-              opacity="0.2" className="animate-beam" style={{ animationDelay: "0.6s" }} />
-
-            {/* Water input */}
+            {/* H₂O input */}
             <g>
-              <text x="60" y="230" fontSize="10" fill="hsl(210, 50%, 45%)" fontWeight="600">Water</text>
-              <circle cx="95" cy="240" r="5" fill="hsl(200, 55%, 55%)" opacity="0.6" />
-              <text x="89" y="244" fontSize="7" fill="hsl(0, 0%, 100%)" fontWeight="600">H₂O</text>
-              <line x1="95" y1="232" x2="110" y2="200" stroke="hsl(210, 50%, 55%)" strokeWidth="1.5"
-                opacity="0.5" markerEnd="url(#arrowBlue)" />
+              <rect x="55" y="222" width="48" height="22" rx="6" fill="hsl(210, 50%, 55%)" opacity="0.15" />
+              <text x="62" y="237" fontSize="11" fill="hsl(210, 50%, 45%)" fontWeight="600">H₂O</text>
+              <path d="M103 233 L128 210" stroke="hsl(210, 50%, 55%)" strokeWidth="1.5" opacity="0.5" markerEnd="url(#arrowBlue)" />
             </g>
 
             {/* Water splitting equation */}
-            <text x="60" y="270" fontSize="8" fill="hsl(210, 45%, 45%)" fontWeight="500">
-              H₂O → O₂ + H⁺ + e⁻
+            <text x="55" y="262" fontSize="8.5" fill="hsl(210, 40%, 45%)" fontWeight="500">
+              2H₂O → O₂ + 4H⁺ + 4e⁻
             </text>
 
-            {/* O₂ molecules escaping */}
-            {[0, 1, 2].map(i => (
-              <g key={`o2-${i}`} className="animate-float-up" style={{ animationDelay: `${i * 0.9}s` }}>
-                <circle cx={75 + i * 18} cy={285} r="3.5" fill="hsl(200, 55%, 52%)" opacity="0.65" />
-                <circle cx={80 + i * 18} cy={283} r="3.5" fill="hsl(200, 55%, 52%)" opacity="0.65" />
-                <text x={70 + i * 18} y={299} fontSize="6" fill="hsl(200, 45%, 45%)">O₂</text>
-              </g>
-            ))}
-
-            {/* Oxygen output label */}
-            <text x="72" y="315" fontSize="10" fill="hsl(200, 50%, 42%)" fontWeight="600">Oxygen</text>
-
-            {/* NADP+ and ADP labels near thylakoid */}
+            {/* O₂ output */}
             <g>
-              <rect x="165" y="175" width="40" height="16" rx="4" fill="hsl(275, 35%, 50%)" opacity="0.7" />
-              <text x="172" y="187" fontSize="8" fill="hsl(0, 0%, 100%)" fontWeight="600">NADP⁺</text>
-              <rect x="165" y="195" width="30" height="16" rx="4" fill="hsl(45, 55%, 50%)" opacity="0.7" />
-              <text x="172" y="207" fontSize="8" fill="hsl(0, 0%, 100%)" fontWeight="600">ADP</text>
+              {[0, 1, 2].map(i => (
+                <g key={`o2-${i}`} className="animate-float-up" style={{ animationDelay: `${i * 1}s` }}>
+                  <circle cx={70 + i * 20} cy={285} r="4" fill="hsl(200, 55%, 55%)" opacity="0.55" />
+                  <circle cx={75 + i * 20} cy={283} r="4" fill="hsl(200, 55%, 55%)" opacity="0.55" />
+                  <text x={65 + i * 20} y={300} fontSize="7" fill="hsl(200, 45%, 42%)">O₂</text>
+                </g>
+              ))}
+              <text x="70" y="318" fontSize="10" fill="hsl(200, 45%, 38%)" fontWeight="600">Oxygen ↑</text>
             </g>
 
-            {/* ATP molecule produced */}
+            {/* Products: ATP & NADPH */}
             <g>
-              <rect x="210" y="240" width="38" height="20" rx="6" fill="hsl(45, 65%, 52%)" opacity="0.8" />
-              <rect x="210" y="240" width="38" height="8" rx="4" fill="hsl(48, 70%, 62%)" opacity="0.3" />
-              <text x="219" y="254" fontSize="9" fill="hsl(0, 0%, 100%)" fontWeight="600">ATP</text>
-            </g>
-            {/* NADPH molecule produced */}
-            <g>
-              <rect x="255" y="240" width="52" height="20" rx="6" fill="hsl(275, 35%, 50%)" opacity="0.8" />
-              <rect x="255" y="240" width="52" height="8" rx="4" fill="hsl(275, 40%, 62%)" opacity="0.3" />
-              <text x="262" y="254" fontSize="9" fill="hsl(0, 0%, 100%)" fontWeight="600">NADPH</text>
+              <rect x="175" y="225" width="42" height="22" rx="6" fill="hsl(45, 65%, 52%)" opacity="0.85" />
+              <text x="184" y="240" fontSize="10" fill="white" fontWeight="700">ATP</text>
+
+              <rect x="175" y="255" width="58" height="22" rx="6" fill="hsl(275, 35%, 50%)" opacity="0.85" />
+              <text x="182" y="270" fontSize="10" fill="white" fontWeight="700">NADPH</text>
             </g>
 
-            {/* Arrow from thylakoid to ATP/NADPH */}
-            <path d="M170 210 Q190 225 215 238" stroke="hsl(45, 55%, 50%)" strokeWidth="1.2" fill="none" opacity="0.5" strokeDasharray="3 2" />
+            {/* Arrow from thylakoid to products */}
+            <path d="M150 195 Q165 215 180 225" stroke="hsl(45, 55%, 50%)" strokeWidth="1.2" fill="none" opacity="0.5" strokeDasharray="3 2" />
 
-            <text x="100" y="340" fontSize="10" fill="hsl(155, 30%, 32%)" fontWeight="600">
-              Light Reaction — Energy Conversion
+            {/* Section label */}
+            <text x="60" y="345" fontSize="11" fill="hsl(155, 30%, 32%)" fontWeight="600">
+              Light Reactions
+            </text>
+            <text x="60" y="358" fontSize="8" fill="hsl(155, 20%, 48%)">
+              (Energy conversion in thylakoids)
             </text>
           </g>
         )}
 
-        {/* === CALVIN CYCLE (right side - like the reference diagram) === */}
+        {/* ============================================ */}
+        {/* === CALVIN CYCLE - RIGHT SIDE === */}
+        {/* ============================================ */}
         {showCalvinCycle && (
           <g>
-            {/* Circular Calvin cycle */}
-            <circle cx="420" cy="195" r="70" fill="none"
-              stroke="hsl(142, 30%, 48%)" strokeWidth="2.5" opacity="0.45"
-              strokeDasharray="8 3" className="animate-cycle-rotate"
-            />
-            {/* Inner fill */}
-            <circle cx="420" cy="195" r="68" fill="hsl(142, 25%, 80%)" opacity="0.2" />
+            {/* Cycle circle */}
+            <circle cx="440" cy="210" r="75" fill="hsl(142, 25%, 85%)" opacity="0.25" />
+            <circle cx="440" cy="210" r="75" fill="none"
+              stroke="hsl(142, 30%, 48%)" strokeWidth="2.5" opacity="0.4"
+              strokeDasharray="8 4" className="animate-cycle-rotate" />
 
-            {/* Flow direction arrows on circle */}
-            {[0, 72, 144, 216, 288].map((angle, i) => {
+            {/* Direction dots on circle */}
+            {[0, 60, 120, 180, 240, 300].map((angle, i) => {
               const rad = (angle * Math.PI) / 180;
-              const ax = 420 + Math.cos(rad) * 70;
-              const ay = 195 + Math.sin(rad) * 70;
               return (
-                <circle key={`arrow-${i}`} cx={ax} cy={ay} r="3.5"
-                  fill="hsl(142, 40%, 42%)" opacity="0.6" />
+                <circle key={`cd-${i}`} cx={440 + Math.cos(rad) * 75} cy={210 + Math.sin(rad) * 75} r="3"
+                  fill="hsl(142, 40%, 45%)" opacity="0.5" />
               );
             })}
 
             {/* Calvin Cycle label */}
-            <text x="393" y="188" fontSize="12" fill="hsl(142, 30%, 30%)" fontWeight="700">Calvin</text>
-            <text x="398" y="204" fontSize="12" fill="hsl(142, 30%, 30%)" fontWeight="700">Cycle</text>
+            <text x="415" y="205" fontSize="13" fill="hsl(142, 30%, 28%)" fontWeight="700">Calvin</text>
+            <text x="420" y="222" fontSize="13" fill="hsl(142, 30%, 28%)" fontWeight="700">Cycle</text>
 
-            {/* CO₂ entering from right */}
+            {/* CO₂ input - top right */}
             <g>
-              <text x="510" y="150" fontSize="9" fill="hsl(0, 0%, 35%)" fontWeight="600">Carbon</text>
-              <text x="510" y="162" fontSize="9" fill="hsl(0, 0%, 35%)" fontWeight="600">Dioxide</text>
-              <circle cx="520" cy="178" r="3" fill="hsl(0, 55%, 48%)" opacity="0.6" />
-              <circle cx="526" cy="178" r="3.5" fill="hsl(0, 0%, 28%)" opacity="0.7" />
-              <circle cx="532" cy="178" r="3" fill="hsl(0, 55%, 48%)" opacity="0.6" />
-              <text x="517" y="193" fontSize="7" fill="hsl(0, 0%, 40%)">CO₂</text>
-              <path d="M518 180 Q500 185 492 190" stroke="hsl(0, 0%, 45%)" strokeWidth="1.2" fill="none"
-                opacity="0.5" markerEnd="url(#arrowHead)" />
+              <rect x="510" y="120" width="55" height="38" rx="6" fill="hsl(0, 0%, 92%)" opacity="0.6" />
+              <text x="518" y="138" fontSize="10" fill="hsl(0, 0%, 30%)" fontWeight="600">Carbon</text>
+              <text x="518" y="150" fontSize="10" fill="hsl(0, 0%, 30%)" fontWeight="600">Dioxide</text>
+              {/* CO₂ molecule */}
+              <circle cx="525" cy="170" r="3" fill="hsl(0, 55%, 48%)" opacity="0.6" />
+              <circle cx="532" cy="170" r="3.5" fill="hsl(0, 0%, 30%)" opacity="0.7" />
+              <circle cx="539" cy="170" r="3" fill="hsl(0, 55%, 48%)" opacity="0.6" />
+              <text x="523" y="184" fontSize="7" fill="hsl(0, 0%, 45%)">CO₂</text>
+              <path d="M525 186 Q500 195 515 200" stroke="hsl(0, 0%, 50%)" strokeWidth="1.2" fill="none" opacity="0.5" markerEnd="url(#arrowGray)" />
             </g>
 
-            {/* ATP + NADPH input arrows from left */}
-            <path d="M307 252 Q350 235 370 220" stroke="hsl(45, 55%, 50%)" strokeWidth="1.5" fill="none" opacity="0.5" strokeDasharray="3 2" markerEnd="url(#arrowYellow)" />
-            <text x="310" y="275" fontSize="8" fill="hsl(150, 10%, 42%)" fontWeight="500">ATP + NADPH</text>
+            {/* ATP + NADPH input from left */}
+            <path d="M233 248 Q320 250 370 230" stroke="hsl(45, 55%, 50%)" strokeWidth="1.5" fill="none" opacity="0.45" strokeDasharray="4 2" markerEnd="url(#arrowYellow)" />
+            <text x="280" y="268" fontSize="8" fill="hsl(150, 10%, 42%)" fontWeight="500">ATP + NADPH →</text>
 
-            {/* Glucose output - hexagonal ring */}
+            {/* Glucose output - bottom */}
             {isCompleted && (
               <g>
-                <polygon points="420,195 432,186 444,195 444,210 432,219 420,210"
-                  fill="hsl(40, 65%, 52%)" opacity="0.85"
-                  stroke="hsl(35, 55%, 40%)" strokeWidth="1" />
-                <polygon points="422,196 430,190 438,196"
-                  fill="hsl(45, 70%, 65%)" opacity="0.3" />
-                <text x="429" y="208" fontSize="7" fill="hsl(0, 0%, 100%)" fontWeight="700" textAnchor="middle">G</text>
+                <polygon points="440,210 450,202 460,210 460,222 450,230 440,222"
+                  fill="hsl(40, 65%, 52%)" opacity="0.85" stroke="hsl(35, 55%, 40%)" strokeWidth="1" />
+                <text x="447" y="220" fontSize="7" fill="white" fontWeight="700" textAnchor="middle">G</text>
               </g>
             )}
 
-            {/* Sugars output */}
             <g>
-              <text x="395" y="290" fontSize="10" fill="hsl(40, 55%, 38%)" fontWeight="600">C₆H₁₂O₆</text>
-              <text x="405" y="305" fontSize="8" fill="hsl(40, 40%, 45%)" fontWeight="500">Sugars</text>
-              <path d="M420 268 L420 278" stroke="hsl(40, 55%, 45%)" strokeWidth="1.5" opacity="0.5" markerEnd="url(#arrowYellow)" />
+              <path d="M440 288 L440 300" stroke="hsl(40, 55%, 45%)" strokeWidth="1.5" opacity="0.6" markerEnd="url(#arrowYellow)" />
+              <rect x="405" y="305" width="72" height="32" rx="6" fill="hsl(40, 60%, 95%)" opacity="0.7" />
+              <text x="414" y="320" fontSize="10" fill="hsl(40, 55%, 35%)" fontWeight="700">C₆H₁₂O₆</text>
+              <text x="422" y="333" fontSize="8.5" fill="hsl(40, 40%, 45%)" fontWeight="500">(Glucose)</text>
             </g>
 
-            <text x="355" y="355" fontSize="10" fill="hsl(142, 30%, 32%)" fontWeight="600">
-              Calvin Cycle — Glucose Production
+            {/* Section label */}
+            <text x="380" y="370" fontSize="11" fill="hsl(142, 30%, 32%)" fontWeight="600">
+              Calvin Cycle
+            </text>
+            <text x="380" y="383" fontSize="8" fill="hsl(142, 20%, 48%)">
+              (Sugar production in stroma)
+            </text>
+          </g>
+        )}
+
+        {/* Divider line between two sections */}
+        {showLightReaction && showCalvinCycle && (
+          <line x1="310" y1="90" x2="310" y2="370" stroke="hsl(142, 20%, 60%)" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
+        )}
+
+        {/* Overall equation at bottom when completed */}
+        {isCompleted && (
+          <g>
+            <rect x="140" y="390" width="340" height="24" rx="8" fill="hsl(142, 30%, 25%)" opacity="0.85" />
+            <text x="160" y="407" fontSize="10" fill="white" fontWeight="600" className="font-mono">
+              6CO₂ + 6H₂O + Light → C₆H₁₂O₆ + 6O₂
             </text>
           </g>
         )}

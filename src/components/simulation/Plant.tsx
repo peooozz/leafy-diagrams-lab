@@ -10,197 +10,169 @@ const Plant: React.FC<PlantProps> = ({ waterActive, co2Active, sunlightActive })
   return (
     <g>
       <defs>
-        <linearGradient id="soilMain" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="hsl(22, 32%, 30%)" />
-          <stop offset="30%" stopColor="hsl(20, 28%, 25%)" />
-          <stop offset="70%" stopColor="hsl(18, 24%, 20%)" />
-          <stop offset="100%" stopColor="hsl(15, 20%, 16%)" />
+        <linearGradient id="soilGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="hsl(30, 40%, 35%)" />
+          <stop offset="100%" stopColor="hsl(25, 30%, 22%)" />
         </linearGradient>
-        <linearGradient id="soilTop" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="hsl(25, 35%, 35%)" />
-          <stop offset="50%" stopColor="hsl(28, 30%, 38%)" />
-          <stop offset="100%" stopColor="hsl(22, 32%, 33%)" />
+        <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="hsl(120, 30%, 30%)" />
+          <stop offset="40%" stopColor="hsl(125, 35%, 40%)" />
+          <stop offset="100%" stopColor="hsl(120, 28%, 28%)" />
         </linearGradient>
-        <linearGradient id="stemCyl" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="hsl(125, 28%, 30%)" />
-          <stop offset="25%" stopColor="hsl(128, 32%, 38%)" />
-          <stop offset="50%" stopColor="hsl(130, 35%, 44%)" />
-          <stop offset="75%" stopColor="hsl(128, 32%, 38%)" />
-          <stop offset="100%" stopColor="hsl(125, 28%, 30%)" />
-        </linearGradient>
-        <radialGradient id="leafSurface" cx="45%" cy="40%">
-          <stop offset="0%" stopColor="hsl(125, 42%, 52%)" />
-          <stop offset="40%" stopColor="hsl(132, 40%, 42%)" />
-          <stop offset="80%" stopColor="hsl(138, 38%, 34%)" />
-          <stop offset="100%" stopColor="hsl(140, 35%, 28%)" />
+        <radialGradient id="leafGrad" cx="40%" cy="35%">
+          <stop offset="0%" stopColor="hsl(130, 50%, 50%)" />
+          <stop offset="60%" stopColor="hsl(135, 45%, 38%)" />
+          <stop offset="100%" stopColor="hsl(140, 40%, 28%)" />
         </radialGradient>
-        <linearGradient id="leafSheen" x1="0.3" y1="0" x2="0.7" y2="1">
-          <stop offset="0%" stopColor="hsl(120, 35%, 60%)" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="hsl(140, 35%, 30%)" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="xylemTube" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="hsl(210, 40%, 48%)" />
-          <stop offset="50%" stopColor="hsl(205, 45%, 58%)" />
-          <stop offset="100%" stopColor="hsl(210, 40%, 48%)" />
-        </linearGradient>
-        <filter id="softShadow">
-          <feGaussianBlur stdDeviation="2" />
-        </filter>
       </defs>
 
-      {/* === SOIL === */}
-      <rect x="120" y="365" width="360" height="90" rx="0" fill="url(#soilMain)" />
-      <rect x="120" y="365" width="360" height="8" fill="url(#soilTop)" />
-      {[140,165,190,220,250,280,310,340,370,400,430,455].map((x, i) => (
-        <g key={`soil-${i}`}>
-          <circle cx={x} cy={380 + (i % 3) * 12} r={1 + (i % 2)} fill="hsl(20, 20%, 22%)" opacity="0.3" />
-          <circle cx={x + 8} cy={395 + (i % 2) * 8} r={0.8} fill="hsl(25, 25%, 40%)" opacity="0.25" />
-        </g>
+      {/* === GROUND / SOIL with wavy top === */}
+      <path d="M0 340 Q80 330 150 338 Q220 346 300 335 Q380 326 450 338 Q520 348 600 335 L600 460 L0 460 Z"
+        fill="url(#soilGrad)" />
+      {/* Soil texture dots */}
+      {[30,80,130,200,260,330,400,460,520,560].map((x, i) => (
+        <circle key={`sd-${i}`} cx={x} cy={370 + (i % 3) * 18} r={1.2 + (i % 2)} fill="hsl(25, 25%, 18%)" opacity="0.3" />
       ))}
-      {waterActive && (
-        <g>
-          <ellipse cx="285" cy="395" rx="40" ry="15" fill="hsl(210, 45%, 55%)" opacity="0.08" />
-          <ellipse cx="310" cy="405" rx="30" ry="10" fill="hsl(210, 45%, 55%)" opacity="0.06" />
-        </g>
-      )}
 
       {/* === ROOT SYSTEM === */}
-      <g>
-        <path d="M300 365 Q298 385 295 405 Q292 420 285 435" stroke="hsl(25, 28%, 35%)" strokeWidth="4" fill="none" strokeLinecap="round" />
-        <path d="M298 380 Q280 390 260 400 Q248 406 240 415" stroke="hsl(25, 25%, 38%)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <path d="M296 395 Q275 405 258 418" stroke="hsl(25, 25%, 38%)" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <path d="M299 378 Q320 388 340 398 Q355 406 365 418" stroke="hsl(25, 25%, 38%)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <path d="M297 390 Q325 402 345 415" stroke="hsl(25, 25%, 38%)" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <path d="M294 405 Q278 415 268 425" stroke="hsl(25, 25%, 38%)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        {[
-          [240,415,-8,5], [240,415,4,7], [258,418,-6,4], [258,418,3,6],
-          [260,400,-7,3], [260,400,2,5], [340,398,6,4], [340,398,-3,6],
-          [365,418,5,3], [365,418,-4,5], [345,415,7,4], [268,425,-5,4], [268,425,3,5],
-          [285,435,-6,3], [285,435,4,5],
-        ].map(([x, y, dx, dy], i) => (
-          <line key={`rh-${i}`} x1={x} y1={y} x2={x+dx} y2={y+dy}
-            stroke="hsl(25, 22%, 42%)" strokeWidth="0.6" opacity="0.5" />
+      <g opacity="0.85">
+        <path d="M300 340 Q298 360 295 385 Q290 405 280 425" stroke="hsl(30, 30%, 35%)" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        <path d="M300 340 Q302 365 308 390 Q315 410 325 430" stroke="hsl(30, 30%, 35%)" strokeWidth="3" fill="none" strokeLinecap="round" />
+        <path d="M295 365 Q270 380 250 395" stroke="hsl(30, 28%, 38%)" strokeWidth="2" fill="none" strokeLinecap="round" />
+        <path d="M308 370 Q330 385 350 400" stroke="hsl(30, 28%, 38%)" strokeWidth="2" fill="none" strokeLinecap="round" />
+        <path d="M280 400 Q265 410 255 420" stroke="hsl(30, 28%, 40%)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <path d="M325 405 Q340 415 352 425" stroke="hsl(30, 28%, 40%)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        {/* Root hairs */}
+        {[[250,395,242,400],[255,420,248,426],[280,425,273,430],[325,430,332,436],[350,400,358,405],[352,425,360,430]].map(([x1,y1,x2,y2], i) => (
+          <line key={`rh-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="hsl(30, 25%, 42%)" strokeWidth="0.8" opacity="0.6" />
         ))}
       </g>
 
-      {/* === STEM === */}
-      <rect x="293" y="200" width="14" height="165" rx="5" fill="url(#stemCyl)" />
-      <rect x="296" y="200" width="4" height="165" rx="2" fill="url(#xylemTube)" opacity="0.45" />
-      <rect x="302" y="200" width="3" height="165" rx="1.5" fill="hsl(130, 30%, 45%)" opacity="0.25" />
-      <rect x="298" y="200" width="2" height="165" rx="1" fill="hsl(130, 40%, 60%)" opacity="0.15" />
+      {/* === MAIN STEM - slightly curved === */}
+      <path d="M300 340 Q298 300 300 260 Q302 220 298 180" stroke="url(#stemGrad)" strokeWidth="8" fill="none" strokeLinecap="round" />
+      {/* Stem highlight */}
+      <path d="M300 340 Q298 300 300 260 Q302 220 298 180" stroke="hsl(125, 35%, 50%)" strokeWidth="2" fill="none" opacity="0.3" strokeLinecap="round" />
 
-      {/* Xylem label */}
-      {waterActive && (
+      {/* === LEAVES - like reference image: teardrop shapes at angles === */}
+      {/* Leaf 1 - top right, large */}
+      <g transform="translate(298, 185) rotate(-30)">
+        <path d="M0 0 Q15 -25 5 -50 Q0 -55 -5 -50 Q-15 -25 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -25 0 -48" stroke="hsl(130, 30%, 30%)" strokeWidth="0.8" fill="none" />
+        {sunlightActive && <path d="M0 -15 Q8 -22 3 -35" stroke="hsl(55, 70%, 65%)" strokeWidth="2.5" opacity="0.15" className="animate-pulse-glow" />}
+      </g>
+
+      {/* Leaf 2 - top left */}
+      <g transform="translate(298, 195) rotate(35)">
+        <path d="M0 0 Q-15 -22 -5 -45 Q0 -50 5 -45 Q15 -22 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -22 0 -43" stroke="hsl(130, 30%, 30%)" strokeWidth="0.8" fill="none" />
+        {sunlightActive && <path d="M0 -12 Q-7 -20 -3 -32" stroke="hsl(55, 70%, 65%)" strokeWidth="2.5" opacity="0.15" className="animate-pulse-glow" />}
+      </g>
+
+      {/* Leaf 3 - mid right */}
+      <g transform="translate(300, 230) rotate(-40)">
+        <path d="M0 0 Q12 -20 4 -40 Q0 -44 -4 -40 Q-12 -20 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -20 0 -38" stroke="hsl(130, 30%, 30%)" strokeWidth="0.7" fill="none" />
+      </g>
+
+      {/* Leaf 4 - mid left, small */}
+      <g transform="translate(299, 250) rotate(45)">
+        <path d="M0 0 Q-10 -16 -3 -32 Q0 -35 3 -32 Q10 -16 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -16 0 -30" stroke="hsl(130, 30%, 30%)" strokeWidth="0.7" fill="none" />
+      </g>
+
+      {/* Leaf 5 - lower right, small */}
+      <g transform="translate(301, 280) rotate(-35)">
+        <path d="M0 0 Q10 -14 3 -28 Q0 -31 -3 -28 Q-10 -14 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -14 0 -26" stroke="hsl(130, 30%, 30%)" strokeWidth="0.6" fill="none" />
+      </g>
+
+      {/* Leaf 6 - lower left, smallest */}
+      <g transform="translate(299, 305) rotate(40)">
+        <path d="M0 0 Q-8 -12 -2 -24 Q0 -26 2 -24 Q8 -12 0 0 Z" fill="url(#leafGrad)" />
+        <path d="M0 0 Q0 -12 0 -22" stroke="hsl(130, 30%, 30%)" strokeWidth="0.6" fill="none" />
+      </g>
+
+      {/* === LABELED ARROWS like in reference === */}
+
+      {/* Energy (Sunlight) - yellow arrow from sun to leaf */}
+      {sunlightActive && (
         <g>
-          <line x1="310" y1="290" x2="330" y2="285" stroke="hsl(210, 40%, 50%)" strokeWidth="0.6" opacity="0.7" />
-          <text x="332" y="288" fontSize="8.5" fill="hsl(210, 40%, 45%)" fontWeight="500" fontStyle="italic">
-            Xylem — Water Transport
+          <line x1="155" y1="100" x2="260" y2="185" stroke="hsl(45, 90%, 55%)" strokeWidth="2.5" opacity="0.7" />
+          <polygon points="260,185 252,178 248,186" fill="hsl(45, 90%, 55%)" opacity="0.7" />
+          <text x="165" y="130" fontSize="10" fill="hsl(45, 80%, 40%)" fontWeight="600" transform="rotate(-28, 165, 130)">
+            Energy
+          </text>
+          <text x="165" y="142" fontSize="7.5" fill="hsl(45, 60%, 45%)" fontStyle="italic" transform="rotate(-28, 165, 142)">
+            (From sunlight)
           </text>
         </g>
       )}
 
-      {/* Water molecules flowing in xylem */}
+      {/* Oxygen - arrow going up-right from top leaf */}
+      {sunlightActive && (
+        <g>
+          <line x1="320" y1="165" x2="390" y2="100" stroke="hsl(200, 50%, 55%)" strokeWidth="1.5" opacity="0.6" />
+          <polygon points="390,100 382,105 386,112" fill="hsl(200, 50%, 55%)" opacity="0.6" />
+          <text x="395" y="95" fontSize="10" fill="hsl(200, 45%, 40%)" fontWeight="600">Oxygen</text>
+          <text x="395" y="107" fontSize="7.5" fill="hsl(200, 35%, 50%)" fontStyle="italic">(Released into air)</text>
+        </g>
+      )}
+
+      {/* Glucose - arrow going right from mid plant */}
+      {sunlightActive && (
+        <g>
+          <line x1="340" y1="230" x2="410" y2="215" stroke="hsl(40, 70%, 50%)" strokeWidth="1.5" opacity="0.6" />
+          <polygon points="410,215 402,212 404,220" fill="hsl(40, 70%, 50%)" opacity="0.6" />
+          <text x="415" y="210" fontSize="10" fill="hsl(40, 60%, 38%)" fontWeight="600">Glucose</text>
+          <text x="415" y="222" fontSize="7.5" fill="hsl(40, 45%, 48%)" fontStyle="italic">(Used by plant)</text>
+        </g>
+      )}
+
+      {/* Carbon Dioxide - arrow coming from left to leaf */}
+      {co2Active && (
+        <g>
+          <line x1="140" y1="230" x2="255" y2="240" stroke="hsl(0, 0%, 45%)" strokeWidth="1.5" opacity="0.6" />
+          <polygon points="255,240 247,235 247,244" fill="hsl(0, 0%, 45%)" opacity="0.6" />
+          <text x="100" y="215" fontSize="10" fill="hsl(0, 0%, 35%)" fontWeight="600">Carbon dioxide</text>
+          <text x="100" y="227" fontSize="7.5" fill="hsl(0, 0%, 50%)" fontStyle="italic">(Absorbed from air)</text>
+        </g>
+      )}
+
+      {/* Water - arrow coming from below roots */}
+      {waterActive && (
+        <g>
+          <line x1="300" y1="445" x2="300" y2="390" stroke="hsl(210, 55%, 55%)" strokeWidth="1.5" opacity="0.6" />
+          <polygon points="300,390 296,398 304,398" fill="hsl(210, 55%, 55%)" opacity="0.6" />
+          <text x="315" y="445" fontSize="10" fill="hsl(210, 50%, 40%)" fontWeight="600">Water</text>
+          <text x="315" y="455" fontSize="7.5" fill="hsl(210, 35%, 50%)" fontStyle="italic">(Absorbed from soil)</text>
+        </g>
+      )}
+
+      {/* Water molecules flowing up stem */}
       {waterActive && (
         <g>
           {[0, 1, 2, 3].map(i => (
-            <g key={`water-${i}`} className="animate-flow-up" style={{ animationDelay: `${i * 0.7}s` }}>
-              <circle cx={298} cy={350 - i * 25} r="2.8" fill="hsl(0, 60%, 52%)" opacity="0.7" />
-              <circle cx={295.5} cy={347.5 - i * 25} r="1.8" fill="hsl(0, 0%, 92%)" opacity="0.75" stroke="hsl(0, 0%, 75%)" strokeWidth="0.3" />
-              <circle cx={300.5} cy={347.5 - i * 25} r="1.8" fill="hsl(0, 0%, 92%)" opacity="0.75" stroke="hsl(0, 0%, 75%)" strokeWidth="0.3" />
+            <g key={`wm-${i}`} className="animate-flow-up" style={{ animationDelay: `${i * 0.8}s` }}>
+              <circle cx={299} cy={330 - i * 30} r="2.5" fill="hsl(210, 55%, 55%)" opacity="0.5" />
+              <circle cx={301} cy={328 - i * 30} r="2" fill="hsl(210, 55%, 60%)" opacity="0.4" />
             </g>
           ))}
         </g>
       )}
 
-      {/* === SMALL LEAVES (2-3 with 🍃 emojis) === */}
-      {/* Leaf 1 - left, small */}
-      <g>
-        <path d="M260 210 Q245 195 235 180 Q250 185 265 195 Z"
-          fill="url(#leafSurface)" />
-        <path d="M260 210 Q245 195 235 180 Q250 185 265 195 Z"
-          fill="url(#leafSheen)" />
-        <path d="M260 210 Q250 198 243 188" stroke="hsl(135, 35%, 35%)" strokeWidth="0.8" fill="none" />
-        {sunlightActive && (
-          <path d="M248 195 Q252 190 258 192"
-            fill="none" stroke="hsl(55, 70%, 70%)" strokeWidth="3" opacity="0.12"
-            className="animate-pulse-glow" strokeLinecap="round" />
-        )}
-        <text x="228" y="175" fontSize="14">🍃</text>
-      </g>
-
-      {/* Leaf 2 - right, small */}
-      <g>
-        <path d="M340 210 Q355 195 365 180 Q350 185 335 195 Z"
-          fill="url(#leafSurface)" />
-        <path d="M340 210 Q355 195 365 180 Q350 185 335 195 Z"
-          fill="url(#leafSheen)" />
-        <path d="M340 210 Q350 198 357 188" stroke="hsl(135, 35%, 35%)" strokeWidth="0.8" fill="none" />
-        {sunlightActive && (
-          <path d="M352 195 Q348 190 342 192"
-            fill="none" stroke="hsl(55, 70%, 70%)" strokeWidth="3" opacity="0.12"
-            className="animate-pulse-glow" strokeLinecap="round" />
-        )}
-        <text x="362" y="175" fontSize="14">🍃</text>
-      </g>
-
-      {/* Leaf 3 - top center, slightly larger */}
-      <g>
-        <path d="M288 205 Q270 178 258 158 Q280 168 295 182 Z"
-          fill="url(#leafSurface)" />
-        <path d="M288 205 Q270 178 258 158 Q280 168 295 182 Z"
-          fill="url(#leafSheen)" />
-        <path d="M312 205 Q330 178 342 158 Q320 168 305 182 Z"
-          fill="url(#leafSurface)" />
-        <path d="M312 205 Q330 178 342 158 Q320 168 305 182 Z"
-          fill="url(#leafSheen)" />
-        {/* Midrib */}
-        <path d="M288 205 Q275 185 265 165" stroke="hsl(135, 35%, 35%)" strokeWidth="0.8" fill="none" />
-        <path d="M312 205 Q325 185 335 165" stroke="hsl(135, 35%, 35%)" strokeWidth="0.8" fill="none" />
-        {sunlightActive && (
-          <path d="M278 180 Q290 172 310 172 Q322 174 330 180"
-            fill="none" stroke="hsl(55, 70%, 70%)" strokeWidth="4" opacity="0.1"
-            className="animate-pulse-glow" strokeLinecap="round" />
-        )}
-        <text x="293" y="152" fontSize="16">🍃</text>
-      </g>
-
-      {/* Chloroplasts in leaves - small dots */}
-      {[
-        [248, 192], [252, 188], [256, 195],
-        [352, 192], [348, 188], [344, 195],
-        [275, 182], [282, 178], [318, 178], [325, 182],
-      ].map(([cx, cy], i) => (
-        <ellipse key={`chl-${i}`} cx={cx} cy={cy} rx="2.5" ry="1.5"
-          fill="hsl(140, 50%, 38%)" opacity="0.4" />
-      ))}
-
-      {/* Stomata on bottom of leaves */}
-      {[260, 300, 340].map((x, i) => (
-        <g key={`stoma-${i}`}>
-          <path d={`M${x-3} ${212+i} Q${x} ${210+i} ${x+3} ${212+i}`}
-            stroke="hsl(135, 40%, 35%)" strokeWidth="0.8" fill="none" />
-          <path d={`M${x-3} ${213+i} Q${x} ${215+i} ${x+3} ${213+i}`}
-            stroke="hsl(135, 40%, 35%)" strokeWidth="0.8" fill="none" />
-          <ellipse cx={x} cy={212.5+i} rx="1.5" ry="0.8" fill="hsl(140, 30%, 25%)" opacity="0.5" />
-        </g>
-      ))}
-      {co2Active && (
-        <text x="352" y="228" fontSize="7.5" fill="hsl(150, 10%, 40%)" fontStyle="italic">Stomata</text>
-      )}
-
-      {/* === CO₂ entering stomata === */}
+      {/* CO₂ molecules drifting toward stomata */}
       {co2Active && (
         <g>
           {[
-            { x: 260, y: 230, delay: 0 },
-            { x: 300, y: 235, delay: 0.8 },
-            { x: 340, y: 228, delay: 1.5 },
+            { x: 220, y: 210, delay: 0 },
+            { x: 200, y: 240, delay: 0.6 },
+            { x: 230, y: 260, delay: 1.2 },
           ].map((mol, i) => (
-            <g key={`co2-${i}`} className="animate-drift" style={{ animationDelay: `${mol.delay}s` }}>
-              <circle cx={mol.x - 6} cy={mol.y} r="2.5" fill="hsl(0, 58%, 48%)" opacity="0.75" />
-              <circle cx={mol.x} cy={mol.y} r="3" fill="hsl(0, 0%, 28%)" opacity="0.8" />
-              <circle cx={mol.x + 6} cy={mol.y} r="2.5" fill="hsl(0, 58%, 48%)" opacity="0.75" />
-              <text x={mol.x - 7} y={mol.y + 11} fontSize="6" fill="hsl(0, 0%, 40%)" fontWeight="500">CO₂</text>
+            <g key={`co2m-${i}`} className="animate-drift" style={{ animationDelay: `${mol.delay}s` }}>
+              <circle cx={mol.x} cy={mol.y} r="2" fill="hsl(0, 55%, 48%)" opacity="0.6" />
+              <circle cx={mol.x + 4} cy={mol.y} r="2.5" fill="hsl(0, 0%, 30%)" opacity="0.65" />
+              <circle cx={mol.x + 8} cy={mol.y} r="2" fill="hsl(0, 55%, 48%)" opacity="0.6" />
+              <text x={mol.x - 1} y={mol.y + 10} fontSize="5.5" fill="hsl(0, 0%, 42%)">CO₂</text>
             </g>
           ))}
         </g>
