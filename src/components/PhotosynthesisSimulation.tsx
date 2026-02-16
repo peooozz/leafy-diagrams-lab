@@ -50,26 +50,16 @@ const PhotosynthesisSimulation: React.FC = () => {
                   sunlightActive={sim.sunlightActive}
                 />
 
-                {/* O₂ molecules leaving leaf */}
+                {/* O₂ molecules floating away */}
                 {(sim.stage === "light-reaction" || sim.stage === "calvin-cycle" || sim.stage === "completed") && (
                   <g>
-                    {[0, 1, 2, 3].map(i => (
-                      <g key={`leaf-o2-${i}`} className="animate-float-up" style={{ animationDelay: `${i * 0.7}s` }}>
-                        <circle cx={310 + i * 22} cy={170} r="3" fill="hsl(200, 55%, 55%)" opacity="0.5" />
-                        <circle cx={314 + i * 22} cy={168} r="3" fill="hsl(200, 55%, 55%)" opacity="0.5" />
-                        <text x={305 + i * 22} y={163} fontSize="6" fill="hsl(200, 45%, 40%)" opacity="0.6">O₂</text>
+                    {[0, 1, 2].map(i => (
+                      <g key={`leaf-o2-${i}`} className="animate-float-up" style={{ animationDelay: `${i * 0.8}s` }}>
+                        <circle cx={350 + i * 18} cy={120} r="3.5" fill="hsl(200, 55%, 55%)" opacity="0.45" />
+                        <circle cx={354 + i * 18} cy={118} r="3.5" fill="hsl(200, 55%, 55%)" opacity="0.45" />
+                        <text x={345 + i * 18} y={112} fontSize="6.5" fill="hsl(200, 45%, 40%)" opacity="0.55">O₂</text>
                       </g>
                     ))}
-                  </g>
-                )}
-
-                {/* Cross-section labels */}
-                {sim.sunlightActive && (
-                  <g opacity="0.7">
-                    <line x1="230" y1="177" x2="210" y2="160" stroke="hsl(130, 20%, 45%)" strokeWidth="0.5" />
-                    <text x="160" y="157" fontSize="7" fill="hsl(130, 20%, 40%)" fontStyle="italic">Upper epidermis</text>
-                    <line x1="232" y1="195" x2="210" y2="195" stroke="hsl(130, 20%, 45%)" strokeWidth="0.5" />
-                    <text x="155" y="198" fontSize="7" fill="hsl(130, 20%, 40%)" fontStyle="italic">Mesophyll</text>
                   </g>
                 )}
               </svg>
