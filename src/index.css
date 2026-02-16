@@ -1,95 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 120 20% 97%;
+    --foreground: 150 10% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 150 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 150 10% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142 40% 32%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 45 60% 92%;
+    --secondary-foreground: 35 40% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 120 10% 92%;
+    --muted-foreground: 150 8% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 200 50% 88%;
+    --accent-foreground: 200 40% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 10% 88%;
+    --input: 120 10% 88%;
+    --ring: 142 40% 32%;
 
     --radius: 0.5rem;
 
+    /* Biology simulation tokens */
+    --sun-core: 45 95% 58%;
+    --sun-glow: 45 90% 75%;
+    --sun-beam: 45 80% 70%;
+
+    --leaf-dark: 142 45% 28%;
+    --leaf-mid: 142 40% 42%;
+    --leaf-light: 130 35% 55%;
+    --leaf-highlight: 120 30% 70%;
+
+    --soil-dark: 25 35% 22%;
+    --soil-mid: 25 30% 35%;
+    --soil-light: 30 25% 50%;
+
+    --sky-top: 205 60% 72%;
+    --sky-bottom: 200 30% 92%;
+
+    --water-blue: 210 55% 55%;
+    --water-light: 200 50% 75%;
+
+    --co2-carbon: 0 0% 25%;
+    --co2-oxygen: 0 65% 50%;
+
+    --glucose-amber: 40 70% 55%;
+    --o2-blue: 200 60% 60%;
+
+    --thylakoid: 155 50% 45%;
+    --stroma: 90 25% 80%;
+    --membrane: 142 30% 50%;
+
+    --xylem-blue: 210 45% 55%;
+    --phloem-green: 130 35% 50%;
+
+    --status-inactive: 0 0% 70%;
+    --status-running: 142 50% 45%;
+    --status-complete: 142 55% 38%;
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -101,5 +91,112 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+}
+
+@layer components {
+  .sim-panel {
+    @apply bg-card rounded-lg border border-border p-4 shadow-sm;
+  }
+
+  .sim-button {
+    @apply px-5 py-3 rounded-lg font-medium text-sm transition-all duration-300;
+  }
+
+  .sim-button-active {
+    @apply bg-primary text-primary-foreground shadow-md;
+  }
+
+  .sim-button-inactive {
+    @apply bg-muted text-muted-foreground cursor-not-allowed opacity-60;
+  }
+
+  .sim-button-ready {
+    @apply bg-secondary text-secondary-foreground border border-border hover:bg-primary hover:text-primary-foreground cursor-pointer;
+  }
+
+  .sim-label {
+    @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+  }
+
+  .sim-heading {
+    @apply text-lg font-semibold text-foreground;
+  }
+
+  .equation-text {
+    @apply font-mono text-sm tracking-wide;
+  }
+}
+
+@layer utilities {
+  @keyframes float-up {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-40px) scale(0.9); opacity: 0; }
+  }
+
+  @keyframes drift-molecule {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(3px, -2px); }
+    50% { transform: translate(-2px, 1px); }
+    75% { transform: translate(1px, 3px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes flow-up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0.3; }
+  }
+
+  @keyframes beam-pulse {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.4; }
+  }
+
+  @keyframes zoom-in {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes cycle-rotate {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -100; }
+  }
+
+  .animate-float-up {
+    animation: float-up 2s ease-out infinite;
+  }
+
+  .animate-drift {
+    animation: drift-molecule 4s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-flow-up {
+    animation: flow-up 3s linear infinite;
+  }
+
+  .animate-beam {
+    animation: beam-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-zoom-in {
+    animation: zoom-in 0.6s ease-out forwards;
+  }
+
+  .animate-cycle-rotate {
+    animation: cycle-rotate 4s linear infinite;
   }
 }
